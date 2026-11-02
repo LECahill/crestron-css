@@ -31,3 +31,21 @@
 .timeline__content__now::before {
   background-color: #2B71B8;
 }
+
+/* Full-screen custom image covering the scheduling UI */
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2147483647;            /* sit above everything, including the offline banner */
+  background: #000 url("https://cdn.jsdelivr.net/gh/LECahill/crestron-css@main/KPSLifeWallpaper.png") center / cover no-repeat;
+  /*pointer-events: none;           /* remove this line if you also want to block touches */
+}
