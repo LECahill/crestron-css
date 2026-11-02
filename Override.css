@@ -53,18 +53,20 @@ body::after {
   width: 100vw;
   height: 100vh;
   z-index: 2147483646;
-  background: #0A1C3A url("https://cdn.jsdelivr.net/gh/LECahill/crestron-css@main/KPSLifeWallpaper.png") center / cover no-repeat;
+  /* 16% (not center) shifts the image right so the logo, which sits
+     slightly left of center in the source image, lands centered on screen */
+  background: #0A1C3A url("https://cdn.jsdelivr.net/gh/LECahill/crestron-css@main/KPSLifeWallpaper.png") 16% 50% / cover no-repeat;
   -webkit-animation: drift 60s ease-in-out infinite alternate;
   animation: drift 60s ease-in-out infinite alternate;
 }
 
 @-webkit-keyframes drift {
-  from { -webkit-transform: scale(1)    translate(0, 0); }
-  to   { -webkit-transform: scale(1.05) translate(-1%, -1%); }
+  from { -webkit-transform: scale(1); }
+  to   { -webkit-transform: scale(1.05); }
 }
 @keyframes drift {
-  from { transform: scale(1)    translate(0, 0); }
-  to   { transform: scale(1.05) translate(-1%, -1%); }
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
 }
 
 /* Soft gold light sweep, echoing the gold line in the wave */
