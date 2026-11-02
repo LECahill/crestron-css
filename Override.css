@@ -1,3 +1,5 @@
+/* ===== KPS Life static display theme ===== */
+
 /* Color for available label */
 .color__main-color-3 {
   color: #2B71B8;
@@ -32,12 +34,17 @@
   background-color: #2B71B8;
 }
 
-/* Full-screen custom image covering the scheduling UI */
+/* ===== Full-screen wallpaper ===== */
+
 html, body {
   margin: 0;
   height: 100%;
+  overflow: hidden;
+  background: #0A1C3A;  /* matches the image's navy, so no flashes while loading */
 }
 
+/* Wallpaper with a very slow drift/zoom.
+   Covers the scheduling UI and blocks touches to it. */
 body::after {
   content: "";
   position: fixed;
@@ -45,7 +52,50 @@ body::after {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 2147483647;            /* sit above everything, including the offline banner */
-  background: #000 url("https://cdn.jsdelivr.net/gh/LECahill/crestron-css@main/KPSLifeWallpaper.png") center / cover no-repeat;
-  /*pointer-events: none;           /* remove this line if you also want to block touches */
+  z-index: 2147483646;
+  background: #0A1C3A url("https://cdn.jsdelivr.net/gh/LECahill/crestron-css@main/KPSLifeWallpaper.png") center / cover no-repeat;
+  -webkit-animation: drift 60s ease-in-out infinite alternate;
+  animation: drift 60s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes drift {
+  from { -webkit-transform: scale(1)    translate(0, 0); }
+  to   { -webkit-transform: scale(1.05) translate(-1%, -1%); }
+}
+@keyframes drift {
+  from { transform: scale(1)    translate(0, 0); }
+  to   { transform: scale(1.05) translate(-1%, -1%); }
+}
+
+/* Soft gold light sweep, echoing the gold line in the wave */
+body::before {
+  content: "";
+  position: fixed;
+  top: -20%;
+  left: 0;
+  width: 40vw;
+  height: 140vh;
+  z-index: 2147483647;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 210, 150, 0)    0%,
+    rgba(255, 210, 150, 0.07) 50%,
+    rgba(255, 210, 150, 0)    100%
+  );
+  -webkit-transform: translateX(-60vw) rotate(15deg);
+  transform: translateX(-60vw) rotate(15deg);
+  pointer-events: none;
+  -webkit-animation: sweep 18s ease-in-out infinite;
+  animation: sweep 18s ease-in-out infinite;
+}
+
+@-webkit-keyframes sweep {
+  0%           { -webkit-transform: translateX(-60vw) rotate(15deg); opacity: 1; }
+  35%          { -webkit-transform: translateX(140vw) rotate(15deg); opacity: 1; }
+  35.01%, 100% { -webkit-transform: translateX(-60vw) rotate(15deg); opacity: 0; }
+}
+@keyframes sweep {
+  0%           { transform: translateX(-60vw) rotate(15deg); opacity: 1; }
+  35%          { transform: translateX(140vw) rotate(15deg); opacity: 1; }
+  35.01%, 100% { transform: translateX(-60vw) rotate(15deg); opacity: 0; }
 }
